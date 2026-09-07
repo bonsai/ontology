@@ -1,0 +1,45 @@
+version: 0.1
+status: skeleton
+
+# Security is part of the operational ontology, not an external afterthought.
+# Authorization is evaluated at the point of read, inference, and action.
+
+principal:
+  id: ""
+  type: human | agent | service
+  roles: []
+
+policy:
+  id: ""
+  purpose: ""
+  scope: []
+  allow: []
+  deny: []
+  constraints: []
+
+resource:
+  object: ""
+  relation: ""
+  evidence: ""
+  logic: ""
+  action: ""
+
+authorization:
+  read: false
+  infer: false
+  propose: false
+  execute: false
+
+provenance:
+  decision_id: ""
+  actor: ""
+  policy_id: ""
+  timestamp: ""
+  audit_event: ""
+
+principles:
+  - least_privilege
+  - explicit_authorization
+  - provenance
+  - auditability
+  - human_review_for_high_impact_actions

@@ -1,0 +1,47 @@
+version: 0.1
+kind: scope-wedge
+status: draft
+
+# The ontology starts from a bounded field scene rather than an assumed total world.
+scope:
+  mission: ""
+  scene: ""
+  phase: discovery
+  actors: []
+  objects: []
+  processes: []
+  constraints: []
+  decisions: []
+  actions: []
+  evidence_sources: []
+  excluded: []
+  success_boundary: ""
+
+observation:
+  observed_by: fde-agent
+  evidence: []
+  observations: []
+  interpretations: []
+  uncertainties: []
+
+ontology:
+  candidate_objects: []
+  candidate_relations: []
+  candidate_states: []
+  candidate_capabilities: []
+  candidate_actions: []
+  declaration_status: proposed
+
+validation:
+  field_review: pending
+  human_review: pending
+  operational_test: pending
+  deviations: []
+
+principles:
+  - reality_before_model
+  - evidence_before_interpretation
+  - bounded_scope
+  - explicit_exclusions
+  - inference_is_not_declaration
+  - outcome_updates_state

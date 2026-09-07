@@ -1,0 +1,172 @@
+version: 0.1
+kind: ax
+status: draft
+
+name: AX
+full_name: Agent Experience / Agent Execution Ontology
+purpose: >-
+  Define and operate what an agent is dealing with (BE) and what an agent can do (DO)
+  through typed objects, states, relations, actions, and work types.
+
+principle: >-
+  AX connects "what is" and "what can be done" so that agents can act against
+  an explicit, bounded, typed world and produce evidence and state transitions.
+
+layers:
+  BE:
+    meaning: what something is
+    primitives:
+      - ObjectType
+      - PropertyType
+      - StateType
+      - RelationType
+      - EvidenceType
+
+  DO:
+    meaning: what can be done
+    primitives:
+      - ActionType
+      - WorkType
+      - InputType
+      - OutputType
+      - Precondition
+      - Effect
+      - Permission
+      - Verification
+
+object_model:
+  object:
+    definition: typed entity in the bounded world
+  state:
+    definition: current condition of an object, relation, or task
+  relation:
+    definition: stateful connection between objects
+    rule: relation is observed state, not a permanent deterministic edge
+
+work_type:
+  definition: typed work pattern transforming one object/state into another
+  formula: "Object/State -> Verb -> Object/State"
+  required:
+    - name
+    - verb
+    - input
+    - output
+  optional:
+    - preconditions
+    - effects
+    - required_capabilities
+    - authorization
+    - evidence
+    - rollback
+
+examples:
+  - name: create_embroidery_pattern
+    verb: create
+    input:
+      type: Design
+    output:
+      type: EmbroideryPattern
+
+  - name: approve_pattern
+    verb: approve
+    input:
+      type: EmbroideryPattern
+      state: review_pending
+    output:
+      type: EmbroideryPattern
+      state: approved
+
+  - name: manufacture_product
+    verb: manufacture
+    input:
+      type: ApprovedEmbroideryPattern
+    output:
+      type: Product
+
+task:
+  definition: execution instance of a WorkType
+  formula: "Task = WorkType + concrete inputs + context + execution state"
+  lifecycle:
+    - proposed
+    - authorized
+    - ready
+    - running
+    - completed
+    - failed
+    - cancelled
+    - verified
+
+workflow:
+  definition: ordered or conditional flow of WorkTypes and Tasks
+  role: compose work into an operational process
+
+agent:
+  definition: execution subject capable of performing authorized actions
+  distinction:
+    WorkType: defines what work is possible
+    Agent: performs the work
+    Task: represents one concrete execution
+    AW: orchestrates execution
+
+aw:
+  definition: orchestrator for Tasks and Workflows
+  responsibilities:
+    - instantiate_tasks
+    - select_or_assign_agents
+    - sequence_work
+    - enforce_preconditions
+    - request_or_check_authorization
+    - execute_or_delegate
+    - collect_results
+    - record_evidence
+    - handle_deviation
+    - trigger_state_transition
+  non_responsibility:
+    - invent_ontology_meaning
+    - silently_canonicalize_inferred_relations
+
+action:
+  definition: operational verb that can change an object, relation, state, or external world
+  formula: "Action = Verb + typed inputs + preconditions + effects + authorization"
+  safety_rule: definition_of_action_does_not_imply_permission_to_execute
+
+operation_loop:
+  - observe
+  - model
+  - identify_possible_action
+  - validate_preconditions
+  - authorize
+  - instantiate_task
+  - orchestrate
+  - execute
+  - verify
+  - record_evidence
+  - transition_state
+  - review
+
+lineage:
+  - object
+  - evidence
+  - state
+  - work_type
+  - task
+  - agent
+  - authorization
+  - action
+  - outcome
+  - evidence
+  - state_transition
+
+axioms:
+  - ontology_defines_what_is
+  - ax_defines_what_is_and_what_can_be_done
+  - worktype_is_a_typed_verb
+  - task_is_an_execution_instance
+  - workflow_is_a_flow_of_work
+  - aw_orchestrates_tasks
+  - agent_executes_authorized_work
+  - action_changes_state_or_world
+  - evidence_closes_the_loop
+  - permissions_are_distinct_from_capabilities
+  - relation_is_stateful
+  - scope_and_exclusions_are_explicit

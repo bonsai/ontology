@@ -2,6 +2,19 @@
 
 This directory contains the conceptual and formal theory of the BONSAI ontology.
 
+## Skeleton
+
+```text
+theory/
+├── README.md
+├── relation-state.yaml      # relation is a state
+├── state-transition.yaml    # state lifecycle and transitions
+├── domain-state.yaml        # domain as organizational state
+├── tag-signature.yaml       # tags as semantic signatures
+├── capability.yaml          # capability extraction boundary
+└── semantic-graph.md        # multi-layer graph model
+```
+
 ## Scope
 
 - semantic ontology
@@ -16,7 +29,7 @@ This directory contains the conceptual and formal theory of the BONSAI ontology.
 
 ## Core principle
 
-> Ontology defines meaning; evidence defines observation; state defines the current relation; time defines change; computation evaluates state; workflows act on state.
+> **Ontology defines meaning; evidence defines observation; state defines the current relation; time defines change; computation evaluates state; workflows act on state.**
 
 ## Separation
 

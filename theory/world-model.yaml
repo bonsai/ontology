@@ -1,0 +1,59 @@
+version: 0.1
+kind: world-model
+status: draft
+
+# The data layer is a bounded, evidence-backed representation of the world.
+# It is not a database schema and not a claim that the whole world is modeled.
+
+world:
+  id: ""
+  mission: ""
+  scene: ""
+  observed_at: ""
+  scope_ref: ""
+
+objects:
+  - id: ""
+    type: ""
+    state: {}
+    properties: {}
+    evidence: []
+    observed_at: ""
+
+relations:
+  - id: ""
+    subject: ""
+    predicate: ""
+    object: ""
+    state:
+      status: observed
+      strength: 0.0
+      confidence: 0.0
+      observed_at: ""
+      evidence: []
+      transitions: []
+
+observations:
+  - id: ""
+    observer: ""
+    source: ""
+    observed_at: ""
+    subject_refs: []
+    facts: []
+    interpretation: ""
+    uncertainty: []
+
+state:
+  version: 0
+  changed_at: ""
+  changed_by: ""
+  changes: []
+
+exclusions: []
+
+principles:
+  - scope_before_abstraction
+  - evidence_before_interpretation
+  - state_over_static_relation
+  - time_is_first_class
+  - exclusions_are_explicit

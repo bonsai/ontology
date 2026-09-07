@@ -1,0 +1,29 @@
+version: 0.1
+kind: relation-state
+status: draft
+
+# A relation is an observed state, not a permanent deterministic fact.
+relation:
+  subject: ""
+  predicate: ""
+  object: ""
+  state:
+    status: observed # observed|inferred|proposed|validated|declared|expired
+    strength: 0.0
+    confidence: 0.0
+    observed_at: ""
+    valid_from: ""
+    valid_to: null
+  evidence: []
+  transition:
+    previous_state: null
+    reason: []
+    changed_at: ""
+
+# Evidence should identify where an observation came from.
+evidence_item:
+  source: ""
+  type: repository # repository|document|event|human|model|workflow
+  observed_at: ""
+  locator: ""
+  note: ""

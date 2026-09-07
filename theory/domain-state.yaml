@@ -1,0 +1,33 @@
+version: 0.1
+kind: domain-state
+status: draft
+
+# A domain is a semantic cluster that can emerge, split, merge, stabilize, or expire.
+domain:
+  id: ""
+  label: ""
+  status: proposed # proposed|validated|declared|obsolete
+  members: []
+  features: []
+  relations: []
+  evidence: []
+  discovered_by:
+    mode: hybrid # human|bqml|rules|hybrid
+    model: ""
+  confidence: 0.0
+  observed_at: ""
+
+cluster:
+  algorithm: ""
+  parameters: {}
+  score: null
+  stability: null
+
+lifecycle:
+  - discovered
+  - proposed
+  - validated
+  - declared
+  - merged
+  - split
+  - obsolete

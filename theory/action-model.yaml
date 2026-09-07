@@ -1,0 +1,59 @@
+version: 0.1
+kind: action-model
+status: draft
+
+# Actions are possible verbs over the bounded world.
+# An action is a capability definition, not an automatic instruction to execute.
+
+actions:
+  - id: ""
+    name: ""
+    description: ""
+    target_types: []
+    inputs: {}
+
+    preconditions: []
+    authorization:
+      actors: []
+      agents: []
+      permissions: []
+      constraints: []
+
+    effects:
+      world_state: []
+      relation_state: []
+      external_systems: []
+      evidence: []
+
+    execution:
+      mode: proposal
+      executor: ""
+      workflow_ref: ""
+      idempotency_key: ""
+      timeout: ""
+      rollback: []
+
+    verification:
+      expected_outcome: []
+      evidence_required: []
+      deviation_policy: ""
+
+    audit:
+      decision_ref: ""
+      action_log_ref: ""
+
+lifecycle:
+  - available
+  - proposed
+  - authorized
+  - executing
+  - completed
+  - failed
+  - verified
+  - rolled_back
+
+safety:
+  default_mode: proposal
+  human_approval_required: true
+  external_write_requires_authorization: true
+  every_execution_requires_evidence: true

@@ -2,17 +2,26 @@
 
 This directory contains the conceptual and formal theory of the BONSAI ontology.
 
-## Reference architecture
+## Field-first reference architecture
 
-Palantir's public Ontology architecture is a useful reference for one important design principle: an ontology should connect **objects and relationships to logic, actions, security, and operational workflows**, rather than stop at a static semantic/data catalog.
+A useful reference from Palantir's public Ontology architecture is that an ontology should connect objects and relationships to logic, actions, security, and operational workflows rather than stop at a static semantic/data catalog. citeturn0search0turn0search1
 
-BONSAI adopts that lesson while keeping its own model:
+BONSAI adds a prior step: **field observation and scope definition**.
 
 ```text
-                 ┌───────────────┐
-                 │   Ontology    │
-                 │ meaning/types │
-                 └───────┬───────┘
+                 FIELD / REAL WORLD
+                         │
+                         ↓
+                   FDE OBSERVATION
+                         │
+                         ↓
+                      EVIDENCE
+                         │
+                         ↓
+                    SCOPE WEDGE
+                         │
+                         ↓
+                     ONTOLOGY
                          │
         ┌────────────────┼────────────────┐
         ↓                ↓                ↓
@@ -33,21 +42,60 @@ BONSAI adopts that lesson while keeping its own model:
                          ↺
 ```
 
-The key extension for BONSAI is that **relations are states**, not permanent deterministic edges. A relation carries confidence, evidence, time, and transition history.
+> **野に降り立って観察してから、世界観を構築する。**
+
+The ontology is also a **scope boundary**: it defines the smallest world that must be represented for the mission, including explicit exclusions.
+
+## Relation as State
+
+The key BONSAI extension is that relations are states, not permanent deterministic edges. A relation carries confidence, evidence, time, and transition history.
+
+```text
+A ↔ Relation State ↔ B
+```
 
 ## Skeleton
 
 ```text
 theory/
 ├── README.md
-├── relation-state.yaml      # relation is a state
-├── state-transition.yaml    # state lifecycle and transitions
-├── domain-state.yaml        # domain as organizational state
-├── tag-signature.yaml       # tags as semantic signatures
-├── capability.yaml          # capability extraction boundary
-├── decision-model.yaml      # data + logic + action + security
-├── security-model.yaml      # authorization and governance boundary
-└── semantic-graph.md        # multi-layer graph model
+├── field-observation.md    # field → evidence → scope → ontology
+├── scope-wedge.yaml        # bounded world definition
+├── relation-state.yaml
+├── state-transition.yaml
+├── domain-state.yaml
+├── tag-signature.yaml
+├── capability.yaml
+├── decision-model.yaml
+├── security-model.yaml
+└── semantic-graph.md
+```
+
+## Field → Ontology boundary
+
+```text
+bonsai/fde-agent
+  OBSERVE
+     ↓
+  Evidence
+     ↓
+  Observation Package
+     ↓
+bonsai/ontology
+  Scope / Meaning
+     ↓
+  Relation State
+     ↓
+  Decision Model
+     ↓
+bonsai/aw
+  Action / Workflow
+     ↓
+  Real World
+     ↓
+  Result / Deviation
+     ↓
+bonsai/fde-agent
 ```
 
 ## Four operational primitives
@@ -59,9 +107,7 @@ Action    → what can change the state/world
 Security  → who/what may read, evaluate, or act
 ```
 
-This follows the useful distinction between semantic objects/links and the kinetic side of actions and workflows.
-
-## BONSAI-specific state model
+## BONSAI state model
 
 ```text
 observation
@@ -85,7 +131,8 @@ relation-state transition
 
 Therefore:
 
-- `ontology` defines meaning
+- `fde-agent` observes reality and preserves field evidence
+- `ontology` defines bounded meaning and scope
 - `repos` provides observed repository facts
 - `synapse` represents changing relations
 - `matrix` performs deterministic computation
@@ -94,23 +141,21 @@ Therefore:
 - `journal` records chronological events
 - `History` preserves origin and narrative
 
-## Core principle
-
-> **Ontology defines meaning; evidence defines observation; state defines the current relation; time defines change; computation evaluates state; security governs access; actions change the world; workflows close the loop.**
-
 ## Decision-centric design
 
-The ontology should not merely answer:
+The ontology should support not only:
 
 > "What is this?"
 
-It should also support:
+but also:
 
 > "What is happening now?"
 >
-> "What could happen next?"
+> "What is inside the current mission scope?"
 >
-> "What evidence supports that conclusion?"
+> "What is deliberately outside the scope?"
+>
+> "What evidence supports this model?"
 >
 > "What action is available?"
 >
@@ -118,7 +163,9 @@ It should also support:
 >
 > "What happened after the action?"
 
-This makes the ontology an operational decision substrate rather than a passive taxonomy.
+## Core principle
+
+> **Reality before model; evidence before interpretation; scope before abstraction; ontology defines meaning; state defines the current relation; time defines change; computation evaluates state; security governs access; actions change the world; workflows close the loop.**
 
 ## Separation
 

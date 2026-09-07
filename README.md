@@ -25,12 +25,92 @@ The basic matching operation compares semantic signatures. Beyond simple similar
 - `Shared Values` — common higher-level values or motivations
 - `Transformation` — ability to translate one representation into another
 
+## Relation as State
+
+Ontology relations are not assumed to be permanent deterministic facts. A relation is a **stateful observation whose strength, confidence, evidence, and meaning may change over time**.
+
+Instead of treating a relation as only:
+
+```text
+A ──related_to──> B
+```
+
+BONSAI models it as:
+
+```text
+A ↔ Relation State ↔ B
+       │
+       ├─ strength
+       ├─ confidence
+       ├─ evidence
+       ├─ observed_at
+       └─ transition history
+```
+
+A relation can therefore emerge, strengthen, weaken, disappear, or change its semantic interpretation. The ontology declares the kinds of relations that are possible; the knowledge state records their current observed status.
+
+Example:
+
+```yaml
+relation:
+  subject: bonsai/aw
+  predicate: related_to
+  object: bonsai/foo
+  state:
+    strength: 0.82
+    confidence: 0.91
+    observed_at: 2026-09-07
+  evidence:
+    - shared_topics
+    - dependency
+    - workflow
+```
+
+This separates **semantic possibility** from **current knowledge state**.
+
+## State, Evidence, and Time
+
+The ontology distinguishes relatively stable semantic definitions from changing knowledge about the world.
+
+```text
+Ontology
+ ├─ concepts
+ ├─ relation types
+ └─ semantic constraints
+
+Knowledge State
+ ├─ relation state
+ ├─ cluster membership
+ ├─ confidence
+ ├─ evidence
+ ├─ time
+ └─ transitions
+```
+
+A relation state follows the lifecycle:
+
+```text
+observed
+   ↓
+inferred
+   ↓
+proposed
+   ↓
+validated
+   ↓
+declared
+```
+
+Declaration is therefore not the same thing as observation. AI or statistical analysis may discover a useful relation or cluster, but canonical semantic meaning requires validation and declaration.
+
 ## Multi-layer semantic graph
 
 ```text
 repo / person
   ↕
-cluster
+relation state
+  ↕
+cluster / domain
   ↕
 concept / tag-set
   ↕
@@ -41,11 +121,65 @@ agent
 workflow
   ↕
 provider / real world
+  ↕
+evidence
 ```
 
-This allows apparently unrelated repositories, domains, and human profiles to become connected when they share a deeper representation.
+This allows apparently unrelated repositories, domains, and human profiles to become connected when they share a deeper representation, while preserving the fact that those connections can change.
 
-### Example: Dots
+## Domain as a State of Organization
+
+A `domain` is a semantic cluster, not a permanent ownership label.
+
+Repository observations can produce candidate clusters through human reasoning, deterministic analysis, or statistical learning:
+
+```text
+repo observations
+      ↓
+features
+      ↓
+relation state
+      ↓
+cluster
+      ↓
+domain hypothesis
+      ↓
+validation
+      ↓
+declared domain
+```
+
+Thus a repository may have different domain affinities at different times, and a domain may emerge, split, merge, stabilize, or become obsolete.
+
+## Deterministic Computation vs Stateful Semantics
+
+The stateful relation model does not mean that every operation is non-deterministic.
+
+The layers have different responsibilities:
+
+```text
+Ontology
+  → declares concepts and possible relations
+
+Evidence
+  → records observations
+
+State
+  → represents current knowledge about relations
+
+Matrix
+  → performs deterministic calculations on state
+
+BQML
+  → discovers statistical patterns and predicts state
+
+AW
+  → routes state into workflows and actions
+```
+
+For example, similarity scores, distances, rankings, and feature calculations can be deterministic even though the underlying semantic relationship evolves over time.
+
+## Example: Dots
 
 The concept `dots` connects domains such as:
 
@@ -59,6 +193,8 @@ The important relation is not that these projects belong to the same business do
 `pixel_grid → stitch_grid`
 
 `pixel/sprite → textile_pattern`
+
+The strength of these connections can itself be observed and updated as new repositories, capabilities, and transformations appear.
 
 ## Human preference extension
 
@@ -80,6 +216,8 @@ discovery / encounter
 real-world interaction
  ↓
 evidence
+ ↓
+updated state
 ```
 
 Possible input axes include:
@@ -103,11 +241,13 @@ Repository facts should come from observation systems such as `bonsai/repos`. Hu
 ```text
 repo / person
  ↓
-tags
+tags / observations
  ↓
 ontology
  ↓
-cluster
+relation state
+ ↓
+cluster / domain
  ↓
 capability / preference / value
  ↓
@@ -119,8 +259,12 @@ real world
  ↓
 evidence
  ↓
+state transition
+ ↓
 new tags / semantic review
 ```
+
+The system is therefore not primarily a classification system. It is a **stateful semantic system** that observes changing relationships and uses those changes to reorganize executable structure.
 
 ## Research
 
@@ -140,3 +284,5 @@ The research treats ontology as the semantic layer between observed assets and e
 The semantic registry can be maintained in `bonsai/ecosystem.md`, while repository observations remain in `bonsai/repos`.
 
 The ontology is therefore the contract between observed state and executable organization.
+
+> **Core principle: ontology defines meaning; evidence defines observation; state defines the current relation; time defines change; computation evaluates state; workflows act on state.**

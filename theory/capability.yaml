@@ -1,0 +1,21 @@
+version: 0.1
+kind: capability
+status: draft
+
+capability:
+  id: ""
+  name: ""
+  description: ""
+  inputs: []
+  outputs: []
+  evidence: []
+  source_repositories: []
+  relation_states: []
+  confidence: 0.0
+
+agent:
+  candidate: false
+  role: ""
+  workflow: ""
+
+# Capability extraction is an inference layer; canonical declarations remain explicit.

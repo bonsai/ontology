@@ -4,7 +4,7 @@ This directory contains the conceptual and formal theory of the BONSAI ontology.
 
 ## Field-first reference architecture
 
-A useful reference from Palantir's public Ontology architecture is that an ontology should connect objects and relationships to logic, actions, security, and operational workflows rather than stop at a static semantic/data catalog. citeturn0search0turn0search1
+A useful reference from Palantir's public Ontology architecture is that an ontology should connect objects and relationships to logic, actions, security, and operational workflows rather than stop at a static semantic/data catalog.
 
 BONSAI adds a prior step: **field observation and scope definition**.
 
@@ -32,19 +32,56 @@ BONSAI adds a prior step: **field observation and scope definition**.
                          ↓
                        Logic
                          ↓
-                       Action
+                 Possible Actions
                          ↓
-                      Workflow
+                   Authorization
+                         ↓
+                     Execution
                          ↓
                     Real World
                          ↓
-                      Evidence
+                 Outcome / Evidence
                          ↺
 ```
 
 > **野に降り立って観察してから、世界観を構築する。**
 
 The ontology is also a **scope boundary**: it defines the smallest world that must be represented for the mission, including explicit exclusions.
+
+## Two layers we must make explicit
+
+### 1. World data layer — nouns
+
+`world-model.yaml` defines the bounded representation of the world:
+
+- objects
+- properties
+- states
+- relations
+- relation state
+- observations
+- evidence
+- time
+- exclusions
+
+This is not merely a database schema. It is an evidence-backed, mission-scoped model of what is currently known about the world.
+
+### 2. Possible action layer — verbs
+
+`action-model.yaml` defines what can be done to that world:
+
+- action type
+- targets and inputs
+- preconditions
+- authorization
+- expected effects
+- external side effects
+- executor/workflow
+- verification evidence
+- rollback/deviation handling
+- audit lineage
+
+An action is a **capability definition**, not permission to execute it. The default is proposal until authorization is established.
 
 ## Relation as State
 
@@ -61,17 +98,19 @@ theory/
 ├── README.md
 ├── field-observation.md    # field → evidence → scope → ontology
 ├── scope-wedge.yaml        # bounded world definition
+├── world-model.yaml        # world data layer
 ├── relation-state.yaml
 ├── state-transition.yaml
 ├── domain-state.yaml
 ├── tag-signature.yaml
 ├── capability.yaml
-├── decision-model.yaml
+├── decision-model.yaml     # data + logic + action + security + outcome
+├── action-model.yaml       # possible actions / verbs
 ├── security-model.yaml
 └── semantic-graph.md
 ```
 
-## Field → Ontology boundary
+## Field → Ontology → Action boundary
 
 ```text
 bonsai/fde-agent
@@ -84,16 +123,22 @@ bonsai/fde-agent
 bonsai/ontology
   Scope / Meaning
      ↓
+  World Data
+     ↓
   Relation State
      ↓
-  Decision Model
+  Logic / Decision
+     ↓
+  Possible Actions
+     ↓
+  Authorization
      ↓
 bonsai/aw
-  Action / Workflow
+  Workflow / Execution
      ↓
   Real World
      ↓
-  Result / Deviation
+  Result / Deviation / Evidence
      ↓
 bonsai/fde-agent
 ```
@@ -101,10 +146,10 @@ bonsai/fde-agent
 ## Four operational primitives
 
 ```text
-Data      → what is observed
+Data      → what exists / is observed now
 Logic     → how the state is evaluated
 Action    → what can change the state/world
-Security  → who/what may read, evaluate, or act
+Security  → who/what may read, evaluate, propose, or act
 ```
 
 ## BONSAI state model
@@ -112,27 +157,32 @@ Security  → who/what may read, evaluate, or act
 ```text
 observation
     ↓
+world state
+    ↓
 relation state
     ↓
 logic / matrix / BQML
     ↓
+action candidates
+    ↓
 decision proposal
     ↓
-AW action
+authorization
     ↓
-workflow / agent
+AW execution
     ↓
 outcome
     ↓
 evidence
     ↓
-relation-state transition
+state transition
+    ↺
 ```
 
 Therefore:
 
 - `fde-agent` observes reality and preserves field evidence
-- `ontology` defines bounded meaning and scope
+- `ontology` defines bounded meaning, world data, and possible actions
 - `repos` provides observed repository facts
 - `synapse` represents changing relations
 - `matrix` performs deterministic computation
@@ -157,15 +207,19 @@ but also:
 >
 > "What evidence supports this model?"
 >
-> "What action is available?"
+> "What actions are possible?"
 >
-> "Who or which agent is allowed to perform it?"
+> "What must be true before an action is allowed?"
+>
+> "Who or which agent is authorized to perform it?"
 >
 > "What happened after the action?"
+>
+> "Did the world change as expected?"
 
 ## Core principle
 
-> **Reality before model; evidence before interpretation; scope before abstraction; ontology defines meaning; state defines the current relation; time defines change; computation evaluates state; security governs access; actions change the world; workflows close the loop.**
+> **Reality before model; evidence before interpretation; scope before abstraction; ontology defines meaning; data represents the bounded world; state defines the current relation; time defines change; computation evaluates state; actions define possible change; security governs access; authorization permits execution; workflows change the world; evidence closes the loop.**
 
 ## Separation
 

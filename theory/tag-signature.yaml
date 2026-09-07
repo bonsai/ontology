@@ -1,0 +1,26 @@
+version: 0.1
+kind: tag-signature
+status: draft
+
+signature:
+  subject: ""
+  tags: []
+  weights: {}
+  source: ""
+  observed_at: ""
+
+matching:
+  method: weighted-jaccard
+  similarity: null
+  complementarity: null
+  shared_values: null
+  evidence: []
+
+# Tags are semantic observations, not final ontology declarations.
+semantic_layers:
+  - lexical
+  - technical
+  - functional
+  - domain
+  - capability
+  - value

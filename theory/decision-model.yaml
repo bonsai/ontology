@@ -1,8 +1,8 @@
 version: 0.1
 status: skeleton
 
-# Reference: decision-centric ontology architecture.
-# BONSAI keeps relation state and evidence as first-class concepts.
+# Decision-centric model connecting world data, logic, possible actions,
+# authorization, execution, and observed outcome.
 
 decision:
   id: ""
@@ -10,12 +10,14 @@ decision:
   objective: ""
   context: []
 
-  data:
+  world:
+    world_ref: ""
     observations: []
     objects: []
     properties: []
     relations: []
     evidence: []
+    state_version: 0
 
   logic:
     rules: []
@@ -29,6 +31,8 @@ decision:
     selected: ""
     executor: ""
     workflow: ""
+    authorization: pending
+    execution: pending
 
   security:
     actor: ""
@@ -40,13 +44,16 @@ decision:
     status: proposed
     effects: []
     evidence: []
+    deviations: []
 
 lifecycle:
   - observe
   - contextualize
   - evaluate
+  - enumerate_actions
   - propose
   - authorize
   - act
   - observe_outcome
+  - verify
   - learn

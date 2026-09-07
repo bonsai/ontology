@@ -4,7 +4,7 @@ This directory contains the conceptual and formal theory of the BONSAI ontology.
 
 ## Reference architecture
 
-Palantir's public Ontology architecture is a useful reference for one important design principle: an ontology should connect **objects and relationships to logic, actions, security, and operational workflows**, rather than stop at a static semantic/data catalog. citeturn1view0turn1view1
+Palantir's public Ontology architecture is a useful reference for one important design principle: an ontology should connect **objects and relationships to logic, actions, security, and operational workflows**, rather than stop at a static semantic/data catalog.
 
 BONSAI adopts that lesson while keeping its own model:
 
@@ -59,7 +59,7 @@ Action    → what can change the state/world
 Security  → who/what may read, evaluate, or act
 ```
 
-This follows the useful distinction in Palantir's public architecture between semantic objects/links and the kinetic side of actions and workflows. citeturn1view0
+This follows the useful distinction between semantic objects/links and the kinetic side of actions and workflows.
 
 ## BONSAI-specific state model
 

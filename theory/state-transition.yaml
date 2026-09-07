@@ -1,0 +1,29 @@
+version: 0.1
+kind: state-transition
+status: draft
+
+transition:
+  from: observed
+  to: inferred
+  trigger: ""
+  evidence: []
+  occurred_at: ""
+  actor: ""
+  confidence_delta: 0.0
+
+# Canonical lifecycle for semantic knowledge.
+lifecycle:
+  - observed
+  - inferred
+  - proposed
+  - validated
+  - declared
+  - expired
+
+rules:
+  - name: evidence_required
+    description: A state transition should be traceable to evidence.
+  - name: declaration_is_explicit
+    description: Inference does not silently become canonical meaning.
+  - name: history_is_append_only
+    description: Previous states remain inspectable as transition history.

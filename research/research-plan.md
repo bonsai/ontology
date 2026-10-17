@@ -1,5 +1,7 @@
 # 研究計画
 
+> **追加研究テーマ (2026-10-18):** skills / agents / MCP の topology・ontology coverage・entropy を測定可能なメタデータとして定義する。定義・値域・算出法・JSONL案・parity検証は [Topology / Ontology / Entropy — Measurement Proposal](topology-ontology-entropy.md) を参照。この提案は研究段階であり、検証前に canonical theory へ昇格させない。
+
 ## 1. 研究テーマ
 
 **タグ群マッチ・オントロジシステム — 多層意味グラフによる異分野リポジトリの自己組織化**
